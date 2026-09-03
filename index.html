@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Speelse online oefeningen bij Veilig leren lezen.">
+  <title>Veilig leren lezen | Spelletjes</title>
+  <style>
+    :root {
+      --ink: #463b56;
+      --purple: #7458a7;
+      --yellow: #ffd64d;
+      --sun: #ffb82e;
+      --coral: #f47b67;
+      --mint: #73cbb2;
+      --blue: #73bddd;
+      --cream: #fffaf0;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      font-family: "Trebuchet MS", "Segoe UI", Verdana, sans-serif;
+      background:
+        radial-gradient(circle at 8% 16%, rgba(255, 214, 77, .28) 0 90px, transparent 92px),
+        radial-gradient(circle at 94% 40%, rgba(115, 203, 178, .20) 0 115px, transparent 117px),
+        linear-gradient(145deg, #fffdf8 0%, #fff5dd 100%);
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 56px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 315px;
+      padding: 48px 38% 42px 54px;
+      overflow: hidden;
+      border: 4px solid var(--white);
+      border-radius: 34px;
+      background: linear-gradient(125deg, #7860ae 0%, #9a78c5 58%, #d7c8ed 100%);
+      box-shadow: 0 18px 45px rgba(74, 58, 97, .18);
+      color: var(--white);
+    }
+
+    .hero::before,
+    .hero::after {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,.13);
+      content: "";
+    }
+
+    .hero::before { width: 210px; height: 210px; left: -85px; top: -110px; }
+    .hero::after { width: 115px; height: 115px; left: 48%; bottom: -68px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 14px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.17);
+      font-size: .88rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 660px;
+      margin: 0;
+      font-size: clamp(2.45rem, 6vw, 4.65rem);
+      line-height: .98;
+      letter-spacing: -.045em;
+      text-wrap: balance;
+    }
+
+    .intro {
+      max-width: 560px;
+      margin: 20px 0 0;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.55;
+    }
+
+    .bee {
+      position: absolute;
+      right: -14px;
+      bottom: -40px;
+      width: min(40%, 430px);
+      filter: drop-shadow(0 18px 16px rgba(52, 38, 32, .2));
+      transform: rotate(3deg);
+      user-select: none;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 42px 6px 20px;
+    }
+
+    .section-heading h2 { margin: 0; font-size: clamp(1.65rem, 3vw, 2.25rem); }
+    .section-heading p { margin: 0 0 4px; color: #746d7d; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .category {
+      --accent: var(--yellow);
+      min-height: 245px;
+      padding: 26px;
+      border: 1px solid rgba(70, 59, 86, .08);
+      border-top: 8px solid var(--accent);
+      border-radius: 22px;
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 10px 28px rgba(78, 63, 93, .10);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .category:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 34px rgba(78, 63, 93, .16);
+    }
+
+    .category:nth-child(2) { --accent: var(--coral); }
+    .category:nth-child(3) { --accent: var(--mint); }
+    .category:nth-child(4) { --accent: var(--blue); }
+    .category:nth-child(5) { --accent: var(--purple); }
+    .category:nth-child(6) { --accent: var(--sun); }
+
+    .category-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .icon {
+      display: grid;
+      width: 46px;
+      height: 46px;
+      flex: 0 0 46px;
+      place-items: center;
+      border-radius: 15px;
+      background: color-mix(in srgb, var(--accent) 30%, white);
+      font-size: 1.45rem;
+    }
+
+    h3 { margin: 0; font-size: 1.32rem; }
+
+    ul {
+      display: grid;
+      gap: 11px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    a.game,
+    .soon {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 14px;
+      border-radius: 13px;
+      background: #faf8fc;
+      color: var(--ink);
+      font-weight: 700;
+      line-height: 1.25;
+      text-decoration: none;
+    }
+
+    a.game::after { content: "→"; color: var(--purple); font-size: 1.25rem; }
+    a.game:hover, a.game:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 65%, white); background: white; }
+
+    .soon { color: #8a8490; font-weight: 600; }
+    .badge { padding: 4px 8px; border-radius: 999px; background: #ece8f1; font-size: .72rem; white-space: nowrap; }
+
+    footer { margin-top: 34px; text-align: center; color: #77717c; font-size: .92rem; }
+
+    @media (max-width: 860px) {
+      .hero { padding: 42px 39% 38px 38px; }
+      .bee { width: 43%; right: -24px; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 590px) {
+      .page { width: min(100% - 20px, 1120px); padding-top: 10px; }
+      .hero { min-height: 465px; padding: 34px 25px 215px; border-radius: 26px; }
+      .bee { width: 255px; right: 50%; bottom: -54px; transform: translateX(50%) rotate(2deg); }
+      .section-heading { align-items: start; flex-direction: column; margin-top: 32px; }
+      .grid { grid-template-columns: 1fr; }
+      .category { min-height: auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">🐝 Zoem mee met letters</p>
+      <h1>Veilig leren lezen</h1>
+      <p class="intro">Kies een spel, oefen de letters en ontdek hoeveel woorden jij al kunt lezen.</p>
+      <img class="bee" src="assets/leesbij.png" alt="Een vrolijke leesbij met een boek" width="1200" height="1200">
+    </header>
+
+    <div class="section-heading">
+      <h2>Kies wat je wilt oefenen</h2>
+      <p>De pagina groeit mee met iedere nieuwe kern.</p>
+    </div>
+
+    <section class="grid" aria-label="Spelletjes per onderdeel">
+      <article class="category">
+        <div class="category-title"><span class="icon" aria-hidden="true">🌱</span><h3>Kern Start</h3></div>
+        <ul>
+          <li><span class="soon">Kennismaken met letters <span class="badge">binnenkort</span></span></li>
+          <li><span class="soon">Luisteren naar klanken <span class="badge">binnenkort</span></span></li>
+        </ul>
+      </article>
+
+      <article class="category">
+        <div class="category-title"><span class="icon" aria-hidden="true">🍎</span><h3>Kern 1</h3></div>
+        <ul>
+          <li><span class="soon">Letters en woorden <span class="badge">binnenkort</span></span></li>
+          <li><span class="soon">Woordjes lezen <span class="badge">binnenkort</span></span></li>
+        </ul>
+      </article>
+
+      <article class="category">
+        <div class="category-title"><span class="icon" aria-hidden="true">🌈</span><h3>Kern 2</h3></div>
+        <ul>
+          <li><span class="soon">Klanken herkennen <span class="badge">binnenkort</span></span></li>
+          <li><span class="soon">Woorden maken <span class="badge">binnenkort</span></span></li>
+        </ul>
+      </article>
+
+      <article class="category">
+        <div class="category-title"><span class="icon" aria-hidden="true">🚀</span><h3>Kern 3</h3></div>
+        <ul>
+          <li><span class="soon">Vlot lezen <span class="badge">binnenkort</span></span></li>
+          <li><span class="soon">Zinnen lezen <span class="badge">binnenkort</span></span></li>
+        </ul>
+      </article>
+
+      <article class="category">
+        <div class="category-title"><span class="icon" aria-hidden="true">👂</span><h3>Klankspelletjes</h3></div>
+        <ul>
+          <li><span class="soon">Welke klank hoor je? <span class="badge">binnenkort</span></span></li>
+          <li><span class="soon">Hak de woorden <span class="badge">binnenkort</span></span></li>
+        </ul>
+      </article>
+
+      <article class="category">
+        <div class="category-title"><span class="icon" aria-hidden="true">📖</span><h3>Lezen &amp; spelen</h3></div>
+        <ul>
+          <li><span class="soon">Memory <span class="badge">binnenkort</span></span></li>
+          <li><span class="soon">Lees en raad <span class="badge">binnenkort</span></span></li>
+        </ul>
+      </article>
+    </section>
+
+    <footer>Gemaakt met aandacht voor beginnende lezers.</footer>
+  </main>
+</body>
+</html>
