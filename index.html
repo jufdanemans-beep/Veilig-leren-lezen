@@ -284,6 +284,74 @@ h1 {
       background: white;
     }
 
+    .game-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.game-list li {
+  margin: 0;
+}
+
+.game {
+  display: grid;
+  grid-template-columns: 42px 1fr 24px;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 58px;
+  padding: 8px 12px;
+  border: 2px solid #eee7df;
+  border-radius: 16px;
+  background: #fffdf8;
+  color: #403652;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-decoration: none;
+  box-shadow: 0 3px 8px rgba(68, 53, 79, 0.08);
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.game-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 12px;
+  background: #fff1c7;
+  font-size: 1.25rem;
+}
+
+.game-text {
+  text-align: left;
+}
+
+.game-arrow {
+  color: #f28a00;
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.game:hover {
+  transform: translateY(-2px);
+  border-color: #ffc544;
+  background: #ffffff;
+  box-shadow: 0 7px 16px rgba(68, 53, 79, 0.14);
+}
+
+.game:focus-visible {
+  outline: 3px solid #58b9df;
+  outline-offset: 3px;
+}
+
     .soon {
       color: #8a8490;
       font-weight: 600;
@@ -394,30 +462,70 @@ h1 {
     <section class="grid" aria-label="Spelletjes per onderdeel">
 
       <article class="category">
-        <div class="category-title">
-          <span class="icon" aria-hidden="true">🐝</span>
-          <h3>Algemeen</h3>
-        </div>
+  <div class="category-title">
+    <span class="icon" aria-hidden="true">🐝</span>
+    <h3>Algemeen</h3>
+  </div>
 
-        <ul>
-          <li><a href="Zoem-kleurenspel.html">Zoem-kleurenspel</a></li>
-        </ul>
-      </article>
-      
-      <article class="category">
-        <div class="category-title">
-          <span class="icon" aria-hidden="true">🌱</span>
-          <h3>Kern Start</h3>
-        </div>
+  <ul class="game-list">
+    <li>
+      <a class="game" href="Zoem-kleurenspel.html">
+        <span class="game-icon">🎨</span>
+        <span class="game-text">Zoem-kleurenspel</span>
+        <span class="game-arrow">›</span>
+      </a>
+    </li>
+  </ul>
+</article>
 
-        <ul>
-          <li><a href="memory-i-k.html">Memory i-k (klanken)</a></li>
-          <li><a href="memory-m-s.html">Memory m-s (klanken)</a></li>
-          <li><a href="memory-i-k-m-s-aa.html">Memory i-k-m-s-aa (klanken)</a></li>
-          <li><a href="hakspel-kern-start.html">Hakspel kern Start</a></li>
-          <li><a href="Miks-Emoji-Missie.html">Miks emoji missie</a></li>
-        </ul>
-      </article>
+<article class="category">
+  <div class="category-title">
+    <span class="icon" aria-hidden="true">🌱</span>
+    <h3>Kern Start</h3>
+  </div>
+
+  <ul class="game-list">
+    <li>
+      <a class="game" href="memory-i-k.html">
+        <span class="game-icon">🃏</span>
+        <span class="game-text">Memory i-k</span>
+        <span class="game-arrow">›</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="game" href="memory-m-s.html">
+        <span class="game-icon">🃏</span>
+        <span class="game-text">Memory m-s</span>
+        <span class="game-arrow">›</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="game" href="memory-i-k-m-s-aa.html">
+        <span class="game-icon">🔤</span>
+        <span class="game-text">Memory i-k-m-s-aa</span>
+        <span class="game-arrow">›</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="game" href="hakspel.html">
+        <span class="game-icon">👏</span>
+        <span class="game-text">Hakspel Kern Start</span>
+        <span class="game-arrow">›</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="game" href="miks-emoji-missie.html">
+        <span class="game-icon">🤖</span>
+        <span class="game-text">Miks emoji-missie</span>
+        <span class="game-arrow">›</span>
+      </a>
+    </li>
+  </ul>
+</article>
 
       <article class="category">
         <div class="category-title">
