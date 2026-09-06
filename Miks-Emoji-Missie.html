@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Miks Emoji Missie</title>
+  <meta name="description" content="Een vrolijk NT2-woordenschat- en letterspel voor groep 3.">
+  <style>
+    :root{--ink:#183153;--blue:#dff4ff;--yellow:#ffd84d;--orange:#ff884d;--green:#32b47b;--red:#eb5265;--white:#fff;--shadow:0 10px 0 rgba(24,49,83,.13)}
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;background:radial-gradient(circle at 12% 8%,#fff9c9 0 10%,transparent 11%),linear-gradient(145deg,#dff4ff,#f6e9ff);font-family:"Trebuchet MS",Arial,sans-serif;color:var(--ink);display:grid;place-items:center;padding:18px}
+    .game{width:min(980px,100%);background:rgba(255,255,255,.93);border:5px solid var(--ink);border-radius:30px;box-shadow:var(--shadow);overflow:hidden}
+    header{display:flex;align-items:center;gap:14px;padding:14px 22px;background:var(--yellow);border-bottom:4px solid var(--ink)}
+    .bot{font-size:52px;filter:drop-shadow(0 3px 0 #fff)} h1{font-size:clamp(1.6rem,4vw,2.6rem);margin:0;line-height:1}.score{margin-left:auto;background:#fff;border:3px solid var(--ink);border-radius:999px;padding:8px 15px;font-weight:900;font-size:1.2rem;white-space:nowrap}
+    main{padding:clamp(18px,4vw,34px);min-height:520px;display:flex;flex-direction:column;justify-content:center;text-align:center}.steps{display:flex;justify-content:center;gap:8px;margin-bottom:18px}.dot{width:14px;height:14px;border:2px solid var(--ink);border-radius:50%;background:#fff}.dot.on{background:var(--orange)}
+    .badge{display:inline-block;align-self:center;background:var(--blue);border:3px solid var(--ink);border-radius:999px;padding:6px 14px;font-weight:900}.prompt{font-size:clamp(1.6rem,4vw,2.7rem);margin:18px 0 8px}.hint{font-size:1.15rem;min-height:30px;margin:0 0 18px}.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:auto;width:100%}.choice{min-height:128px;border:4px solid var(--ink);border-radius:22px;background:#fff;box-shadow:0 7px 0 #b8c7d9;font:inherit;color:inherit;cursor:pointer;padding:10px;transition:.12s transform,.12s box-shadow}.choice:hover,.choice:focus-visible{transform:translateY(-3px);box-shadow:0 10px 0 #91abc5;outline:4px solid #69c6ff}.choice:active{transform:translateY(5px);box-shadow:0 2px 0 #91abc5}.emoji{display:block;font-size:55px}.label{font-size:1.25rem;font-weight:900}.feedback{margin:22px auto 0;min-height:64px;font-size:1.35rem;font-weight:900;border-radius:18px;padding:13px;max-width:670px}.good{background:#d9f8e9;border:3px solid var(--green)}.try{background:#ffe1e5;border:3px solid var(--red)}
+    .next,.start,.again{border:4px solid var(--ink);border-radius:17px;background:var(--green);color:#fff;font:900 1.25rem inherit;padding:12px 24px;box-shadow:0 6px 0 #187451;cursor:pointer;margin:15px auto 0}.start{font-size:1.5rem}.hidden{display:none!important}.intro-icons{font-size:clamp(3.5rem,9vw,6rem);letter-spacing:8px;margin:14px}.teacher{background:#fff3c0;border-top:3px dashed var(--ink);padding:10px 18px;text-align:left;font-size:.95rem}.teacher summary{cursor:pointer;font-weight:900}.final{font-size:clamp(1.4rem,3vw,2rem);line-height:1.5}.stars{font-size:3rem}
+    @media(max-width:660px){.choices{grid-template-columns:1fr}.choice{min-height:90px;display:flex;align-items:center;justify-content:center;gap:15px}.emoji{font-size:44px}.teacher{display:none}header{padding:10px 14px}.bot{font-size:40px}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  </style>
+</head>
+<body>
+<section class="game" aria-live="polite">
+  <header><span class="bot">🤖</span><h1>Miks Emoji Missie</h1><div class="score">⭐ <span id="score">0</span></div></header>
+  <main id="screen"></main>
+  <details class="teacher"><summary>👩‍🏫 Tip voor de juf</summary>Klik samen. Laat de leerling vóór elke klik hardop antwoorden. Bij “Ik houd van…” mag de leerling ook een eigen activiteit noemen.</details>
+</section>
+<script>
+const rounds=[
+ {tag:'Missie 1',q:'Wie is Mik?',hint:'Kies het goede plaatje.',opts:[['👦','een jongen'],['🐝','een dier'],['🤖','een robot']],ok:2,say:'Mik is een robot.'},
+ {tag:'Missie 2',q:'Mik is een nieuw …',hint:'Maak de zin af.',opts:[['👑','koning'],['👥','lid'],['🏠','huis']],ok:1,say:'Mik is een nieuw lid van de club.'},
+ {tag:'Missie 3',q:'Waar houd jij van?',hint:'Kies één emoji en zeg: “Ik houd van …”',opts:[['📖','lezen'],['🎨','tekenen'],['⚽','voetballen']],open:true},
+ {tag:'Missie 4',q:'Waar hoor je mmm vooraan?',hint:'Doe je lippen dicht: mmmmm…',opts:[['🌙','maan'],['🐟','vis'],['🍰','taart']],ok:0,say:'Maan begint met mmm.'},
+ {tag:'Missie 5',q:'Waar hoor je ook de m?',hint:'Luister goed naar het hele woord.',opts:[['🧦','sok'],['🪮','kam'],['🐟','vis']],ok:1,say:'In kam hoor je de m achteraan.'},
+ {tag:'Missie 6',q:'Bouw het woord MIK',hint:'Welke letters staan goed?',opts:[['m · i · k','mik'],['i · m · k','imk'],['k · i · m','kim']],ok:0,say:'Mmm–i–k: Mik!'},
+ {tag:'Robotbreak',q:'Doe als Mik!',hint:'Voer de beweging uit en zeg de zin.',opts:[['🏊','Mik zwemt'],['✏️','Mik tekent'],['😴','Mik slaapt']],open:true},
+ {tag:'Exit',q:'Welke klank hoor je vooraan in Mik?',hint:'Zeg de klank, niet de letternaam.',opts:[['🐍','sss'],['🤖','mmm'],['🥁','kkk']],ok:1,say:'Vooraan in Mik hoor je mmm.'}
+];
+let i=-1,score=0,locked=false;const el=document.querySelector('#screen'),scoreEl=document.querySelector('#score');
+function dots(){return `<div class="steps">${rounds.map((_,n)=>`<span class="dot ${n<=i?'on':''}"></span>`).join('')}</div>`}
+function intro(){el.innerHTML=`<div class="badge">Les 4 • letter m</div><div class="intro-icons">🤖 💬 🌙</div><h2 class="prompt">Help jij Mik met 8 missies?</h2><p class="hint">Kijk, luister, praat en beweeg!</p><button class="start" onclick="next()">Start het spel 🚀</button>`}
+function render(){locked=false;const r=rounds[i];el.innerHTML=`${dots()}<div class="badge">${r.tag}</div><h2 class="prompt">${r.q}</h2><p class="hint">${r.hint}</p><div class="choices">${r.opts.map((o,n)=>`<button class="choice" onclick="choose(${n})"><span class="emoji">${o[0]}</span><span class="label">${o[1]}</span></button>`).join('')}</div><div id="feedback" class="feedback"></div><button id="next" class="next hidden" onclick="next()">Volgende missie ➜</button>`}
+function choose(n){if(locked)return;const r=rounds[i],f=document.querySelector('#feedback'),nb=document.querySelector('#next');if(r.open){locked=true;score++;scoreEl.textContent=score;f.className='feedback good';f.textContent=`Goed gekozen! Zeg hardop: “${r.opts[n][1].startsWith('Mik')?r.opts[n][1]:'Ik houd van '+r.opts[n][1]}.”`;nb.classList.remove('hidden');return}if(n===r.ok){locked=true;score++;scoreEl.textContent=score;f.className='feedback good';f.textContent='✅ Goed! '+r.say;nb.classList.remove('hidden')}else{f.className='feedback try';f.textContent='🤔 Nog een keer. Luister goed!' }}
+function next(){i++;if(i<rounds.length)render();else finish()}
+function finish(){el.innerHTML=`<div class="stars">⭐ ⭐ ⭐</div><h2 class="prompt">Missies klaar!</h2><p class="final">Mik is een <b>robot</b>.<br>Mik is een nieuw <b>lid</b>.<br>Vooraan in Mik hoor je <b>mmm</b>.</p><p class="feedback good">Jij hebt ${score} sterren verdiend!</p><button class="again" onclick="restart()">Nog een keer 🔄</button>`}
+function restart(){i=-1;score=0;scoreEl.textContent=0;intro()} intro();
+</script>
+</body></html>
