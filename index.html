@@ -251,7 +251,6 @@ h1 {
       list-style: none;
     }
 
-    a.game,
     .soon {
       display: flex;
       align-items: center;
@@ -268,22 +267,6 @@ h1 {
       text-decoration: none;
     }
 
-    a.game::after {
-      content: "→";
-      color: var(--purple);
-      font-size: 1.25rem;
-    }
-
-    a.game:hover,
-    a.game:focus-visible {
-      outline: 3px solid color-mix(
-        in srgb,
-        var(--accent) 65%,
-        white
-      );
-      background: white;
-    }
-
     .game-list {
   display: grid;
   gap: 12px;
@@ -298,7 +281,7 @@ h1 {
 
 .game {
   display: grid;
-  grid-template-columns: 42px 1fr 24px;
+  grid-template-columns: 42px 1fr;
   align-items: center;
   gap: 12px;
   width: 100%;
@@ -331,13 +314,6 @@ h1 {
 
 .game-text {
   text-align: left;
-}
-
-.game-arrow {
-  color: #f28a00;
-  font-size: 1.8rem;
-  font-weight: 800;
-  line-height: 1;
 }
 
 .game:hover {
@@ -472,7 +448,6 @@ h1 {
       <a class="game" href="Zoem-kleurenspel.html">
         <span class="game-icon">🎨</span>
         <span class="game-text">Zoem-kleurenspel</span>
-        <span class="game-arrow">›</span>
       </a>
     </li>
   </ul>
@@ -489,7 +464,6 @@ h1 {
       <a class="game" href="memory-i-k.html">
         <span class="game-icon">🃏</span>
         <span class="game-text">Memory i-k</span>
-        <span class="game-arrow">›</span>
       </a>
     </li>
 
@@ -497,7 +471,6 @@ h1 {
       <a class="game" href="memory-m-s.html">
         <span class="game-icon">🃏</span>
         <span class="game-text">Memory m-s</span>
-        <span class="game-arrow">›</span>
       </a>
     </li>
 
@@ -505,7 +478,6 @@ h1 {
       <a class="game" href="memory-i-k-m-s-aa.html">
         <span class="game-icon">🔤</span>
         <span class="game-text">Memory i-k-m-s-aa</span>
-        <span class="game-arrow">›</span>
       </a>
     </li>
 
@@ -513,7 +485,6 @@ h1 {
       <a class="game" href="hakspel.html">
         <span class="game-icon">👏</span>
         <span class="game-text">Hakspel Kern Start</span>
-        <span class="game-arrow">›</span>
       </a>
     </li>
 
@@ -521,7 +492,6 @@ h1 {
       <a class="game" href="miks-emoji-missie.html">
         <span class="game-icon">🤖</span>
         <span class="game-text">Miks emoji-missie</span>
-        <span class="game-arrow">›</span>
       </a>
     </li>
   </ul>
