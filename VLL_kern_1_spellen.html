@@ -11,7 +11,8 @@ button,input,select{font:inherit}.app{max-width:1100px;margin:auto;padding:18px}
 .panel{display:none;background:rgba(255,255,255,.92);border-radius:24px;padding:clamp(16px,4vw,32px);box-shadow:var(--shadow);min-height:570px}.panel.active{display:block}.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}.tag{background:var(--sky);padding:8px 12px;border-radius:999px;font-weight:800}.score{font-weight:900}.prompt{text-align:center;font-size:clamp(1.35rem,3vw,2rem);font-weight:900;margin:14px auto}.scene{font-size:clamp(4.8rem,14vw,9rem);text-align:center;line-height:1.1;margin:15px}.answers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:850px;margin:20px auto}.answer,.primary,.secondary{border:0;border-radius:18px;padding:16px;font-weight:850;cursor:pointer}.answer{background:#fff;border:3px solid #d8e7ef;min-height:96px;font-size:1.08rem}.answer:hover,.answer:focus{border-color:var(--blue);transform:translateY(-2px)}.answer.good{background:#dff7e9;border-color:var(--green)}.answer.bad{background:#ffe5e5;border-color:var(--red)}.primary{background:var(--blue);color:#fff}.secondary{background:#edf4f7;color:var(--ink)}.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.feedback{text-align:center;min-height:54px;font-size:1.2rem;font-weight:800}.speak{border:0;border-radius:50%;width:52px;height:52px;background:#fff0c8;font-size:24px;cursor:pointer}.settings{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.settings select{border:2px solid #cbdce5;border-radius:12px;padding:8px;background:#fff}
 .flash-card{width:min(520px,90%);height:260px;margin:25px auto;display:grid;place-items:center;border-radius:26px;background:#fff;border:5px solid var(--sky);box-shadow:var(--shadow);font-size:clamp(5rem,16vw,10rem);font-weight:900;cursor:pointer;user-select:none}.flash-card.word{font-size:clamp(2.5rem,8vw,5rem)}.flash-card.sentence{font-size:clamp(1.5rem,5vw,2.7rem);padding:25px;text-align:center}.reveal{text-align:center;min-height:42px;font-size:1.35rem;font-weight:750}.progress{height:14px;background:#e2edf2;border-radius:99px;overflow:hidden;margin:12px 0 20px}.progress>div{height:100%;background:linear-gradient(90deg,var(--green),#70c99f);width:0;transition:.3s}
 .sentence-zone{min-height:110px;border:3px dashed #afcbd8;border-radius:20px;padding:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;margin:18px 0;background:#f9fdff}.word-bank{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:20px 0}.tile{border:0;border-radius:14px;padding:13px 17px;background:#fff0c8;color:var(--ink);font-size:1.25rem;font-weight:850;box-shadow:0 3px 8px rgba(23,50,77,.12);cursor:pointer}.tile.used{opacity:.3}.sentence-picture{text-align:center;font-size:6rem}.teacher-note{margin-top:22px;border-top:2px solid #e3edf1;padding-top:14px;color:#536e81;font-size:.95rem}.hidden{display:none!important}.stars{font-size:1.5rem;letter-spacing:3px}.celebrate{animation:pop .45s ease}@keyframes pop{50%{transform:scale(1.08)}}
-@media(max-width:700px){.tabs,.answers{grid-template-columns:1fr}.panel{min-height:620px}.answer{min-height:70px}.top{justify-content:center;text-align:center}.settings{justify-content:center}.bar{justify-content:center}}
+.mission-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:860px;margin:24px auto}.mission{border:3px solid #d8e7ef;border-radius:22px;background:#fff;padding:22px 12px;font-size:1.08rem;font-weight:900;cursor:pointer}.mission span{display:block;font-size:3.2rem;margin-bottom:8px}.mission:hover{border-color:var(--blue);transform:translateY(-2px)}.teacher-settings{max-width:760px;margin:22px auto;background:#f3f8fa;border-radius:16px;padding:13px 16px}.teacher-settings summary{font-weight:850;cursor:pointer}.teacher-grid{display:flex;gap:18px;flex-wrap:wrap;padding-top:12px}.teacher-grid label{display:flex;gap:7px;align-items:center}.paws{text-align:center;font-size:1.8rem;min-height:45px;letter-spacing:4px}.speak-frame{max-width:680px;margin:14px auto;padding:15px;border-radius:16px;background:#fff3cf;text-align:center;font-weight:850;font-size:1.15rem}.reward-card{max-width:600px;margin:20px auto;background:#effaf5;border:3px solid #b8dfca;border-radius:24px;padding:22px;text-align:center}.dog-choices{display:flex;gap:12px;justify-content:center;margin:15px}.dog-choice{font-size:3rem;border:3px solid transparent;border-radius:18px;background:#fff;padding:10px;cursor:pointer}.dog-choice.chosen{border-color:var(--green)}.name-input{padding:12px;border:2px solid #b7ccd6;border-radius:12px;max-width:220px}.small{font-size:.95rem;color:#577083;text-align:center}
+@media(max-width:700px){.tabs,.answers,.mission-grid{grid-template-columns:1fr}.panel{min-height:620px}.answer{min-height:70px}.top{justify-content:center;text-align:center}.settings{justify-content:center}.bar{justify-content:center}}
 </style>
 </head>
 <body>
@@ -24,14 +25,20 @@ button,input,select{font:inherit}.app{max-width:1100px;margin:auto;padding:18px}
  </nav>
 
  <section id="help" class="panel active">
-  <div class="bar"><span class="tag">Kijk, kies en vertel</span><span class="score">Sterren: <span id="helpScore">0</span> ⭐</span></div>
-  <div id="helpScene" class="scene">🐶🩹</div>
-  <div id="helpPrompt" class="prompt">De hond is gewond. Wat helpt?</div>
-  <div class="actions"><button id="speakHelp" class="speak" title="Luister">🔊</button></div>
-  <div id="helpAnswers" class="answers"></div>
-  <div id="helpFeedback" class="feedback" aria-live="polite"></div>
-  <div class="actions"><button id="nextHelp" class="primary hidden">Volgende situatie ➜</button></div>
-  <p class="teacher-note"><strong>Docenttip:</strong> laat de leerling na elk goed antwoord de voorbeeldzin nazeggen en daarna één woord veranderen.</p>
+  <div id="missionStart">
+   <div class="bar"><span class="tag">Help in het hondenhuis</span><span class="score">Kies een missie</span></div>
+   <div class="mission-grid"><button class="mission" data-mission="dieren"><span>🐶</span>Dieren verzorgen</button><button class="mission" data-mission="omgeving"><span>♻️</span>Een schone omgeving</button><button class="mission" data-mission="gevaar"><span>⚠️</span>In gevaar</button></div>
+   <details class="teacher-settings"><summary>⚙️ Docentinstellingen</summary><div class="teacher-grid"><label>Rondes <select id="roundCount"><option value="3">3</option><option value="5" selected>5</option><option value="8">8</option></select></label><label><input id="showWords" type="checkbox" checked> woorden tonen</label><label><input id="requireSpeak" type="checkbox" checked> spreekzin gebruiken</label></div></details>
+   <p class="small">De geschreven woorden ondersteunen de woordenschat. Ze zijn geen technisch leesdoel.</p>
+  </div>
+  <div id="missionGame" class="hidden">
+   <div class="bar"><button id="backMissions" class="secondary">← Missies</button><span id="missionTitle" class="tag"></span><span id="roundInfo" class="score"></span></div><div id="paws" class="paws"></div>
+   <div id="helpScene" class="scene"></div><div id="helpSituation" class="small"></div><div id="helpPrompt" class="prompt"></div>
+   <div class="actions"><button id="speakHelp" class="speak" title="Luister naar de opdracht">🔊</button></div><div id="helpAnswers" class="answers"></div><div id="helpFeedback" class="feedback" aria-live="polite"></div><div id="speakFrame" class="speak-frame hidden"></div>
+   <div class="actions"><button id="saidSentence" class="secondary hidden">🎤 Ik heb de zin gezegd</button><button id="nextHelp" class="primary hidden">Volgende situatie ➜</button></div>
+  </div>
+  <div id="missionReward" class="hidden"><div class="reward-card"><h2>Je hebt goed geholpen!</h2><div class="paws">🐾🐾🐾🐾🐾</div><p>Kies een hond voor het hondenhuis.</p><div class="dog-choices"><button class="dog-choice" data-dog="🐕">🐕</button><button class="dog-choice" data-dog="🐩">🐩</button><button class="dog-choice" data-dog="🐕‍🦺">🐕‍🦺</button></div><label>Mijn hond heet <input id="dogName" class="name-input" maxlength="12" placeholder="naam"></label><div class="actions" style="margin-top:16px"><button id="makeDogCard" class="primary">Maak mijn hondenkaart</button></div><div id="dogCard" class="speak-frame hidden"></div><div class="actions"><button id="restartMission" class="secondary hidden">Speel nog een missie</button></div></div></div>
+  <p class="teacher-note"><strong>Docenttip:</strong> laat de leerling eerst luisteren en kiezen. Gebruik de spreekzin daarna actief. Moeilijke doelwoorden zijn geen zelfstandige leestoets.</p>
  </section>
 
  <section id="flash" class="panel">
@@ -60,20 +67,40 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 function speak(text){ if(!('speechSynthesis' in window))return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text);u.lang='nl-NL';u.rate=.82;speechSynthesis.speak(u) }
 $$('.tab').forEach(b=>b.onclick=()=>{$$('.tab').forEach(x=>x.setAttribute('aria-selected','false'));b.setAttribute('aria-selected','true');$$('.panel').forEach(p=>p.classList.remove('active'));$('#'+b.dataset.panel).classList.add('active')});
 
-const situations=[
- {scene:'🐶🩹',q:'De hond is gewond. Wat helpt?',a:['een pleister','een voetbal','een ijsje'],ok:0,line:'De hond is gewond. Ik help met een pleister.'},
- {scene:'🗑️🍌🧴',q:'Het afval slingert rond. Wat doe je?',a:['Ik ruim het afval op.','Ik gooi er meer bij.','Ik loop door de puinhoop.'],ok:0,line:'Ik help een handje en ruim het afval op.'},
- {scene:'🧒🪖🚲',q:'Wat beschermt je hoofd op de fiets?',a:['een helm','een leuning','een verpakking'],ok:0,line:'De helm beschermt mijn hoofd.'},
- {scene:'🐕‍🦺👨‍🦯',q:'Wie helpt het baasje?',a:['de hulphond','de vuilnisman','de kok'],ok:0,line:'De hulphond helpt het baasje.'},
- {scene:'🪜😟',q:'Iemand kan er niet bij. Wat kun jij doen?',a:['Ik help.','Ik raak in paniek.','Ik maak een puinhoop.'],ok:0,line:'Hij kan er niet bij. Ik help hem.'},
- {scene:'🏥🐈',q:'De kat is ziek. Wie kan helpen?',a:['de dierenarts','de assistent van de winkel','de buschauffeur'],ok:0,line:'De dierenarts verzorgt de zieke kat.'},
- {scene:'🧃📦♻️',q:'Wat doe je met deze verpakkingen?',a:['Ik scheid het afval.','Ik laat ze rondslingeren.','Ik verstop ze.'],ok:0,line:'Ik scheid het afval en houd de omgeving schoon.'},
- {scene:'🧒🪜🤝',q:'Wat maakt de trap veiliger?',a:['de leuning','de stank','de puinhoop'],ok:0,line:'De leuning is een hulpmiddel.'}
-];
-let hi=0,hs=0,locked=false;
-function renderHelp(){locked=false;const s=situations[hi];$('#helpScene').textContent=s.scene;$('#helpPrompt').textContent=s.q;$('#helpFeedback').textContent='';$('#nextHelp').classList.add('hidden');const box=$('#helpAnswers');box.innerHTML='';s.a.forEach((x,i)=>{const b=document.createElement('button');b.className='answer';b.textContent=x;b.onclick=()=>chooseHelp(b,i);box.appendChild(b)})}
-function chooseHelp(btn,i){if(locked)return;const s=situations[hi];if(i===s.ok){locked=true;btn.classList.add('good');hs++;$('#helpScore').textContent=hs;$('#helpFeedback').textContent='Goed! '+s.line;speak(s.line);$('#nextHelp').classList.remove('hidden');$('#helpScene').classList.add('celebrate');setTimeout(()=>$('#helpScene').classList.remove('celebrate'),500)}else{btn.classList.add('bad');$('#helpFeedback').textContent='Kijk nog eens. Wat lost het probleem op?';setTimeout(()=>btn.classList.remove('bad'),700)}}
-$('#nextHelp').onclick=()=>{hi=(hi+1)%situations.length;renderHelp()};$('#speakHelp').onclick=()=>speak(situations[hi].q);renderHelp();
+const missions={
+ dieren:{title:'Dieren verzorgen',rounds:[
+  {scene:'🐶🩹',s:'De hond heeft pijn aan zijn poot.',q:'Hoe is de hond?',a:['🩹 gewond','😊 vrolijk','✨ schoon'],line:'De hond is gewond.'},
+  {scene:'🐈🤒',s:'De kat is ziek en moet beter worden.',q:'Wie kan de kat helpen?',a:['👩‍⚕️ de dierenarts','🚛 de vuilnisman','👨‍🍳 de kok'],line:'De dierenarts helpt de kat.'},
+  {scene:'🐶😟🤲',s:'De pup is bang in het dierenasiel.',q:'Wat kun je doen?',a:['🤲 geruststellen','📣 hard roepen','🚪 alleen laten'],line:'Ik stel de pup gerust.'},
+  {scene:'🐕❤️🧒',s:'Het baasje zorgt extra lief voor de hond.',q:'Welk woord past?',a:['❤️ vertroetelen','🗑️ verspillen','⚠️ bezeren'],line:'Het baasje vertroetelt de hond.'},
+  {scene:'🐕‍🦺👨‍🦯',s:'De hond helpt zijn baasje iedere dag.',q:'Wat voor hond is dit?',a:['🐕‍🦺 de hulphond','🐶 de pup','🦭 de zeehond'],line:'De hulphond helpt het baasje.'}]},
+ omgeving:{title:'Een schone omgeving',rounds:[
+  {scene:'🗑️🍌🧴',s:'Er ligt overal afval op straat.',q:'Hoe ziet de straat eruit?',a:['🗑️ een puinhoop','✨ heel schoon','🏥 een dierenasiel'],line:'De straat is een puinhoop.'},
+  {scene:'🧃📦♻️',s:'De verpakkingen moeten in verschillende bakken.',q:'Wat doe je?',a:['♻️ afval scheiden','🌳 laten rondslingeren','🚿 water verspillen'],line:'Ik scheid het afval.'},
+  {scene:'🧸👟🧦',s:'De spullen liggen overal op de grond.',q:'Wat doen de spullen?',a:['🧦 rondslingeren','🧼 schoonmaken','🩹 genezen'],line:'De spullen slingeren rond.'},
+  {scene:'🧴🧽✨',s:'Hiermee maak je de vloer schoon.',q:'Wat is de fles?',a:['🧴 het schoonmaakmiddel','🥤 een drankje','🩼 een hulpmiddel'],line:'Dit is het schoonmaakmiddel.'},
+  {scene:'🗑️👃😖',s:'Het afval ruikt heel vies.',q:'Wat ruik je?',a:['👃 de stank','🌸 parfum','🍞 brood'],line:'Ik ruik de stank.'}]},
+ gevaar:{title:'In gevaar',rounds:[
+  {scene:'🧒🪖🚲',s:'Het kind fietst met een helm.',q:'Wat geeft de helm?',a:['🛡️ bescherming','👃 stank','🗑️ een puinhoop'],line:'De helm geeft bescherming.'},
+  {scene:'🪜🤝',s:'Je houdt dit vast als je de trap gebruikt.',q:'Hoe heet dit?',a:['🤝 de leuning','📦 de verpakking','🧴 het schoonmaakmiddel'],line:'Ik houd de leuning vast.'},
+  {scene:'♿↗️',s:'Deze schuine weg helpt om omhoog te gaan.',q:'Wat zie je?',a:['↗️ de helling','🪜 de leuning','🛏️ de mand'],line:'Dit is een helling.'},
+  {scene:'🩼🧑',s:'Dit voorwerp helpt iemand bij het lopen.',q:'Wat is een kruk?',a:['🩼 een hulpmiddel','🗑️ afval','🐾 een dierenasiel'],line:'Een kruk is een hulpmiddel.'},
+  {scene:'😱⚠️',s:'Iemand schrikt erg en weet niet wat te doen.',q:'Wat gebeurt er?',a:['😱 in paniek raken','😌 geruststellen','❤️ vertroetelen'],line:'Hij raakt in paniek.'}]}
+};
+let missionRounds=[],hi=0,hs=0,locked=false,chosenDog='';
+function startMission(key){const all=[...missions[key].rounds].sort(()=>Math.random()-.5);missionRounds=all.slice(0,Math.min(+$('#roundCount').value,all.length));hi=0;hs=0;$('#missionStart').classList.add('hidden');$('#missionReward').classList.add('hidden');$('#missionGame').classList.remove('hidden');$('#missionTitle').textContent=missions[key].title;renderHelp()}
+$$('.mission').forEach(b=>b.onclick=()=>startMission(b.dataset.mission));
+function answerText(text){return $('#showWords').checked?text:text.split(' ')[0]}
+function renderHelp(){locked=false;const x=missionRounds[hi];$('#roundInfo').textContent=`Ronde ${hi+1} van ${missionRounds.length}`;$('#paws').textContent='🐾'.repeat(hs);$('#helpScene').textContent=x.scene;$('#helpSituation').textContent=x.s;$('#helpPrompt').textContent=x.q;$('#helpFeedback').textContent='';$('#speakFrame').classList.add('hidden');$('#saidSentence').classList.add('hidden');$('#nextHelp').classList.add('hidden');const box=$('#helpAnswers');box.innerHTML='';shuffle(x.a.map((text,i)=>({text,correct:i===0}))).forEach(o=>{const b=document.createElement('button');b.className='answer';b.textContent=answerText(o.text);b.onclick=()=>chooseHelp(b,o.correct);box.appendChild(b)})}
+function chooseHelp(btn,correct){if(locked)return;const x=missionRounds[hi];if(correct){locked=true;btn.classList.add('good');hs++;$('#paws').textContent='🐾'.repeat(hs);$('#helpFeedback').textContent='Goed!';$('#speakFrame').textContent='Zeg de zin: '+x.line;$('#speakFrame').classList.remove('hidden');speak(x.line);if($('#requireSpeak').checked)$('#saidSentence').classList.remove('hidden');else $('#nextHelp').classList.remove('hidden');$('#helpScene').classList.add('celebrate');setTimeout(()=>$('#helpScene').classList.remove('celebrate'),500)}else{btn.classList.add('bad');$('#helpFeedback').textContent='Kijk en luister nog eens.';setTimeout(()=>btn.classList.remove('bad'),700)}}
+$('#saidSentence').onclick=()=>{$('#saidSentence').classList.add('hidden');$('#nextHelp').classList.remove('hidden');$('#helpFeedback').textContent='Mooi gezegd!'};
+$('#nextHelp').onclick=()=>{if(hi+1>=missionRounds.length)showReward();else{hi++;renderHelp()}};
+$('#speakHelp').onclick=()=>{const x=missionRounds[hi];speak(x.s+' '+x.q)};
+$('#backMissions').onclick=()=>{$('#missionGame').classList.add('hidden');$('#missionStart').classList.remove('hidden')};
+function showReward(){$('#missionGame').classList.add('hidden');$('#missionReward').classList.remove('hidden');chosenDog='';$$('.dog-choice').forEach(b=>b.classList.remove('chosen'));$('#dogName').value='';$('#dogCard').classList.add('hidden');$('#restartMission').classList.add('hidden')}
+$$('.dog-choice').forEach(b=>b.onclick=()=>{chosenDog=b.dataset.dog;$$('.dog-choice').forEach(x=>x.classList.remove('chosen'));b.classList.add('chosen')});
+$('#makeDogCard').onclick=()=>{const name=$('#dogName').value.trim();$('#dogCard').classList.remove('hidden');if(!chosenDog||!name){$('#dogCard').textContent='Kies een hond en geef hem een naam.';return}const text=`Mijn hond heet ${name}. Ik verzorg ${name}. ${name} krijgt een fijne mand.`;$('#dogCard').textContent=chosenDog+' '+text;$('#restartMission').classList.remove('hidden');speak(text)};
+$('#restartMission').onclick=()=>{$('#missionReward').classList.add('hidden');$('#missionStart').classList.remove('hidden')};
 
 // Technisch leesmateriaal uit Werkboek Anker 1. Iedere set bevat alleen
 // materiaal dat uiterlijk op die methodedag in het werkboek voorkomt.
