@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VLL kern 1 spellen</title>
+<style>
+:root{--ink:#17324d;--blue:#2a7191;--sky:#dff5ff;--cream:#fffaf0;--green:#3b8b6b;--orange:#ee984b;--red:#c95454;--white:#fff;--shadow:0 10px 30px rgba(23,50,77,.14)}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(145deg,#e9f8ff,#fff8e8);min-height:100vh}
+button,input,select{font:inherit}.app{max-width:1100px;margin:auto;padding:18px}.top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.logo{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:#fff;font-size:36px;box-shadow:var(--shadow)}h1{font-size:clamp(1.5rem,4vw,2.5rem);margin:0}.sub{margin:.25rem 0 0;color:#49667e}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}.tab{border:0;border-radius:16px;padding:14px 10px;background:#fff;color:var(--ink);font-weight:800;box-shadow:0 4px 14px rgba(23,50,77,.1);cursor:pointer}.tab[aria-selected=true]{background:var(--blue);color:#fff;transform:translateY(-2px)}
+.panel{display:none;background:rgba(255,255,255,.92);border-radius:24px;padding:clamp(16px,4vw,32px);box-shadow:var(--shadow);min-height:570px}.panel.active{display:block}.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}.tag{background:var(--sky);padding:8px 12px;border-radius:999px;font-weight:800}.score{font-weight:900}.prompt{text-align:center;font-size:clamp(1.35rem,3vw,2rem);font-weight:900;margin:14px auto}.scene{font-size:clamp(4.8rem,14vw,9rem);text-align:center;line-height:1.1;margin:15px}.answers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:850px;margin:20px auto}.answer,.primary,.secondary{border:0;border-radius:18px;padding:16px;font-weight:850;cursor:pointer}.answer{background:#fff;border:3px solid #d8e7ef;min-height:96px;font-size:1.08rem}.answer:hover,.answer:focus{border-color:var(--blue);transform:translateY(-2px)}.answer.good{background:#dff7e9;border-color:var(--green)}.answer.bad{background:#ffe5e5;border-color:var(--red)}.primary{background:var(--blue);color:#fff}.secondary{background:#edf4f7;color:var(--ink)}.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.feedback{text-align:center;min-height:54px;font-size:1.2rem;font-weight:800}.speak{border:0;border-radius:50%;width:52px;height:52px;background:#fff0c8;font-size:24px;cursor:pointer}.settings{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.settings select{border:2px solid #cbdce5;border-radius:12px;padding:8px;background:#fff}
+.flash-card{width:min(520px,90%);height:260px;margin:25px auto;display:grid;place-items:center;border-radius:26px;background:#fff;border:5px solid var(--sky);box-shadow:var(--shadow);font-size:clamp(5rem,16vw,10rem);font-weight:900;cursor:pointer;user-select:none}.flash-card.word{font-size:clamp(2.5rem,8vw,5rem)}.flash-card.sentence{font-size:clamp(1.5rem,5vw,2.7rem);padding:25px;text-align:center}.reveal{text-align:center;min-height:42px;font-size:1.35rem;font-weight:750}.progress{height:14px;background:#e2edf2;border-radius:99px;overflow:hidden;margin:12px 0 20px}.progress>div{height:100%;background:linear-gradient(90deg,var(--green),#70c99f);width:0;transition:.3s}
+.sentence-zone{min-height:110px;border:3px dashed #afcbd8;border-radius:20px;padding:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;margin:18px 0;background:#f9fdff}.word-bank{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:20px 0}.tile{border:0;border-radius:14px;padding:13px 17px;background:#fff0c8;color:var(--ink);font-size:1.25rem;font-weight:850;box-shadow:0 3px 8px rgba(23,50,77,.12);cursor:pointer}.tile.used{opacity:.3}.sentence-picture{text-align:center;font-size:6rem}.teacher-note{margin-top:22px;border-top:2px solid #e3edf1;padding-top:14px;color:#536e81;font-size:.95rem}.hidden{display:none!important}.stars{font-size:1.5rem;letter-spacing:3px}.celebrate{animation:pop .45s ease}@keyframes pop{50%{transform:scale(1.08)}}
+@media(max-width:700px){.tabs,.answers{grid-template-columns:1fr}.panel{min-height:620px}.answer{min-height:70px}.top{justify-content:center;text-align:center}.settings{justify-content:center}.bar{justify-content:center}}
+</style>
+</head>
+<body>
+<main class="app">
+ <header class="top"><div class="logo">🐝</div><div><h1>VLL kern 1 spellen</h1><p class="sub">Help! • woordenschat • lezen • zinnen bouwen</p></div></header>
+ <nav class="tabs" aria-label="Kies een spel">
+  <button class="tab" aria-selected="true" data-panel="help">🐾 Help Zoem</button>
+  <button class="tab" aria-selected="false" data-panel="flash">⚡ Flitslab</button>
+  <button class="tab" aria-selected="false" data-panel="sentence">🧩 Bouw de zin</button>
+ </nav>
+
+ <section id="help" class="panel active">
+  <div class="bar"><span class="tag">Kijk, kies en vertel</span><span class="score">Sterren: <span id="helpScore">0</span> ⭐</span></div>
+  <div id="helpScene" class="scene">🐶🩹</div>
+  <div id="helpPrompt" class="prompt">De hond is gewond. Wat helpt?</div>
+  <div class="actions"><button id="speakHelp" class="speak" title="Luister">🔊</button></div>
+  <div id="helpAnswers" class="answers"></div>
+  <div id="helpFeedback" class="feedback" aria-live="polite"></div>
+  <div class="actions"><button id="nextHelp" class="primary hidden">Volgende situatie ➜</button></div>
+  <p class="teacher-note"><strong>Docenttip:</strong> laat de leerling na elk goed antwoord de voorbeeldzin nazeggen en daarna één woord veranderen.</p>
+ </section>
+
+ <section id="flash" class="panel">
+  <div class="bar"><span class="tag">Lees wat je al kunt</span><div class="settings"><label for="flashDay">Tot en met:</label><select id="flashDay"><option value="1">dag 1 • r</option><option value="3">dag 3 • e</option><option value="5">dag 5 • v</option><option value="8">dag 8 • p</option><option value="10">dag 10 • n</option><option value="12">dag 12 • ee</option><option value="15">dag 15 • b</option><option value="17">dag 17 • oo</option></select><label for="flashMode">Kaarten:</label><select id="flashMode"><option value="letters">letters</option><option value="words">woorden</option><option value="sentences">zinnen</option></select></div></div>
+  <div class="progress"><div id="flashProgress"></div></div>
+  <button id="flashCard" class="flash-card" aria-label="Flitskaart">r</button>
+  <div id="flashReveal" class="reveal">Zeg de klank. Klik daarna op de kaart.</div>
+  <div class="actions"><button id="listenFlash" class="secondary">🔊 Luister</button><button id="nextFlash" class="primary">Nieuwe kaart ➜</button></div>
+  <p class="teacher-note"><strong>Docenttip:</strong> kies de laatst behandelde VLL-dag. De leerling krijgt dan alleen letters, woorden en zinnen aangeboden die in het werkboek tot en met die dag voorkomen. Spreek af: eerst zelf lezen, daarna pas luisteren.</p>
+ </section>
+
+ <section id="sentence" class="panel">
+  <div class="bar"><span class="tag">Zet de woorden goed</span><span class="score"><span id="sentCount">1</span> van 8</span></div>
+  <div id="sentPic" class="sentence-picture">🐶🩹</div>
+  <div class="prompt">Maak de zin</div>
+  <div id="sentenceZone" class="sentence-zone" aria-label="Jouw zin"></div>
+  <div id="wordBank" class="word-bank"></div>
+  <div class="actions"><button id="undoWord" class="secondary">↩ Haal woord terug</button><button id="checkSentence" class="primary">Controleer</button></div>
+  <div id="sentenceFeedback" class="feedback" aria-live="polite"></div>
+  <div class="actions"><button id="speakSentence" class="secondary hidden">🔊 Lees de zin</button><button id="nextSentence" class="primary hidden">Volgende zin ➜</button></div>
+  <p class="teacher-note"><strong>Docenttip:</strong> laat de leerling de zin eerst hardop lezen. Vraag daarna: “Kun je één woord veranderen en een nieuwe goede zin maken?”</p>
+ </section>
+</main>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function speak(text){ if(!('speechSynthesis' in window))return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text);u.lang='nl-NL';u.rate=.82;speechSynthesis.speak(u) }
+$$('.tab').forEach(b=>b.onclick=()=>{$$('.tab').forEach(x=>x.setAttribute('aria-selected','false'));b.setAttribute('aria-selected','true');$$('.panel').forEach(p=>p.classList.remove('active'));$('#'+b.dataset.panel).classList.add('active')});
+
+const situations=[
+ {scene:'🐶🩹',q:'De hond is gewond. Wat helpt?',a:['een pleister','een voetbal','een ijsje'],ok:0,line:'De hond is gewond. Ik help met een pleister.'},
+ {scene:'🗑️🍌🧴',q:'Het afval slingert rond. Wat doe je?',a:['Ik ruim het afval op.','Ik gooi er meer bij.','Ik loop door de puinhoop.'],ok:0,line:'Ik help een handje en ruim het afval op.'},
+ {scene:'🧒🪖🚲',q:'Wat beschermt je hoofd op de fiets?',a:['een helm','een leuning','een verpakking'],ok:0,line:'De helm beschermt mijn hoofd.'},
+ {scene:'🐕‍🦺👨‍🦯',q:'Wie helpt het baasje?',a:['de hulphond','de vuilnisman','de kok'],ok:0,line:'De hulphond helpt het baasje.'},
+ {scene:'🪜😟',q:'Iemand kan er niet bij. Wat kun jij doen?',a:['Ik help.','Ik raak in paniek.','Ik maak een puinhoop.'],ok:0,line:'Hij kan er niet bij. Ik help hem.'},
+ {scene:'🏥🐈',q:'De kat is ziek. Wie kan helpen?',a:['de dierenarts','de assistent van de winkel','de buschauffeur'],ok:0,line:'De dierenarts verzorgt de zieke kat.'},
+ {scene:'🧃📦♻️',q:'Wat doe je met deze verpakkingen?',a:['Ik scheid het afval.','Ik laat ze rondslingeren.','Ik verstop ze.'],ok:0,line:'Ik scheid het afval en houd de omgeving schoon.'},
+ {scene:'🧒🪜🤝',q:'Wat maakt de trap veiliger?',a:['de leuning','de stank','de puinhoop'],ok:0,line:'De leuning is een hulpmiddel.'}
+];
+let hi=0,hs=0,locked=false;
+function renderHelp(){locked=false;const s=situations[hi];$('#helpScene').textContent=s.scene;$('#helpPrompt').textContent=s.q;$('#helpFeedback').textContent='';$('#nextHelp').classList.add('hidden');const box=$('#helpAnswers');box.innerHTML='';s.a.forEach((x,i)=>{const b=document.createElement('button');b.className='answer';b.textContent=x;b.onclick=()=>chooseHelp(b,i);box.appendChild(b)})}
+function chooseHelp(btn,i){if(locked)return;const s=situations[hi];if(i===s.ok){locked=true;btn.classList.add('good');hs++;$('#helpScore').textContent=hs;$('#helpFeedback').textContent='Goed! '+s.line;speak(s.line);$('#nextHelp').classList.remove('hidden');$('#helpScene').classList.add('celebrate');setTimeout(()=>$('#helpScene').classList.remove('celebrate'),500)}else{btn.classList.add('bad');$('#helpFeedback').textContent='Kijk nog eens. Wat lost het probleem op?';setTimeout(()=>btn.classList.remove('bad'),700)}}
+$('#nextHelp').onclick=()=>{hi=(hi+1)%situations.length;renderHelp()};$('#speakHelp').onclick=()=>speak(situations[hi].q);renderHelp();
+
+// Technisch leesmateriaal uit Werkboek Anker 1. Iedere set bevat alleen
+// materiaal dat uiterlijk op die methodedag in het werkboek voorkomt.
+const flashSets={
+  1:{letter:'r',words:['rik','raam','maar','raak','kaak'],sentences:['ik mik.','ik mis.','ik maak.','ik raak.','ik sis.']},
+  3:{letter:'e',words:['mis','mik','mes','raak','rek','rik','rem'],sentences:['ik mik.','ik rem.','ik rek.','ik raak.','sik is er.']},
+  5:{letter:'v',words:['ver','vis','vaar','vaas','vers','rem'],sentences:['ik vaar.','ik vis.','ik vaar ver.','er is kaas.','ik maak vis.']},
+  8:{letter:'p',words:['aas','aap','raap','sip','mep','kip','pak','pik'],sentences:['ik raap.','ik pik.','ik vis.','ik sis.','ik prik.','ik spaar.']},
+  10:{letter:'n',words:['rem','ren','pen','nek','kin','vin','min','maan','naam'],sentences:['ik ren.','ik vaar.','ik vis.','ik ren naar pim.','ik vaar en ik vis.']},
+  12:{letter:'ee',words:['een','reep','mees','pen','mes','peer','veer','speen'],sentences:['ik neem een pen.','kees is een mees.','ik neem een reep.','ik maak een vaas.']},
+  15:{letter:'b',words:['baas','bes','been','beek','bek','baan','beer'],sentences:['ik ben pim.','ik ben kim.','ik ben nik.','ik neem een pen mee.','ik neem een reep mee.']},
+  17:{letter:'oo',words:['room','rook','roos','boon','boom','boos','koop','kook'],sentences:['ik kook.','ik koop.','ik raas.','ik ben boos.','ik neem een boon.','ik ren ook mee.']}
+};
+const baseLetters=['i','k','m','s','aa'];
+const dayOrder=['1','3','5','8','10','12','15','17'];
+function activeFlash(){
+  const chosen=$('#flashDay').value, mode=$('#flashMode').value;
+  const available=dayOrder.slice(0,dayOrder.indexOf(chosen)+1);
+  if(mode==='letters') return [...baseLetters,...available.map(d=>flashSets[d].letter)];
+  // Woorden en zinnen worden per geselecteerde methodedag geflitst. Zo blijft
+  // de oefening gericht en worden langere zinnen niet te vroeg aangeboden.
+  return flashSets[chosen][mode];
+}
+let fi=-1,shown=false,seen=0;
+function flashInstruction(mode){return mode==='letters'?'Zeg de klank. Klik daarna op de kaart.':mode==='words'?'Lees het woord. Klik daarna op de kaart.':'Lees de zin hardop. Klik daarna op de kaart.'}
+function newFlash(){const mode=$('#flashMode').value,arr=activeFlash();let n;do{n=Math.floor(Math.random()*arr.length)}while(n===fi&&arr.length>1);fi=n;shown=false;seen++;const card=$('#flashCard');card.textContent=arr[fi];card.className='flash-card '+(mode==='words'?'word':mode==='sentences'?'sentence':'');$('#flashReveal').textContent=flashInstruction(mode);$('#flashProgress').style.width=((seen%6)/5*100)+'%'}
+$('#flashCard').onclick=()=>{shown=!shown;const mode=$('#flashMode').value,item=activeFlash()[fi];$('#flashReveal').textContent=shown?(mode==='letters'?'Dit is de letter '+item+'.':'Lees nog eens: '+item):flashInstruction(mode)};
+$('#nextFlash').onclick=newFlash;$('#listenFlash').onclick=()=>speak(activeFlash()[fi]);
+function resetFlash(){fi=-1;seen=0;newFlash()}
+$('#flashMode').onchange=resetFlash;$('#flashDay').onchange=resetFlash;newFlash();
+
+const sentences=[
+ {p:'🐶🩹',w:['De','hond','is','gewond.']},{p:'👩‍⚕️🐕',w:['De','dierenarts','helpt','de','hond.']},
+ {p:'🧒🗑️',w:['Ik','ruim','het','afval','op.']},{p:'✨🏡',w:['De','omgeving','is','schoon.']},
+ {p:'🪖🧒',w:['De','helm','beschermt','mijn','hoofd.']},{p:'🐕‍🦺🤝',w:['De','hulphond','helpt','het','baasje.']},
+ {p:'🧒🐈❤️',w:['Ik','vertroetel','de','kat.']},{p:'🪜🤝',w:['De','leuning','is','een','hulpmiddel.']}
+];
+let si=0,placed=[];
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function renderSentence(){placed=[];const s=sentences[si];$('#sentCount').textContent=si+1;$('#sentPic').textContent=s.p;$('#sentenceFeedback').textContent='';$('#speakSentence').classList.add('hidden');$('#nextSentence').classList.add('hidden');$('#sentenceZone').innerHTML='';const bank=$('#wordBank');bank.innerHTML='';shuffle(s.w.map((w,i)=>({w,i}))).forEach(o=>{const b=document.createElement('button');b.className='tile';b.textContent=o.w;b.dataset.id=o.i;b.onclick=()=>{if(b.classList.contains('used'))return;b.classList.add('used');placed.push(o);drawPlaced()};bank.appendChild(b)})}
+function drawPlaced(){const z=$('#sentenceZone');z.innerHTML='';placed.forEach((o,index)=>{const b=document.createElement('button');b.className='tile';b.textContent=o.w;b.title='Klik om dit woord terug te halen';b.onclick=()=>{placed.splice(index,1);const source=$$('#wordBank .tile').find(x=>+x.dataset.id===o.i);if(source)source.classList.remove('used');drawPlaced()};z.appendChild(b)})}
+$('#undoWord').onclick=()=>{if(!placed.length)return;const o=placed.pop();const source=$$('#wordBank .tile').find(x=>+x.dataset.id===o.i);if(source)source.classList.remove('used');drawPlaced()};
+$('#checkSentence').onclick=()=>{const correct=sentences[si].w.join(' '),made=placed.map(x=>x.w).join(' ');if(made===correct){$('#sentenceFeedback').textContent='Goed gebouwd! Lees de zin hardop.';$('#speakSentence').classList.remove('hidden');$('#nextSentence').classList.remove('hidden');$('#sentenceZone').classList.add('celebrate');setTimeout(()=>$('#sentenceZone').classList.remove('celebrate'),500)}else if(placed.length<sentences[si].w.length){$('#sentenceFeedback').textContent='Er ontbreken nog woorden.'}else{$('#sentenceFeedback').textContent='Lees van links naar rechts. Welk woord hoort vooraan?'}};
+$('#speakSentence').onclick=()=>speak(sentences[si].w.join(' '));$('#nextSentence').onclick=()=>{si=(si+1)%sentences.length;renderSentence()};renderSentence();
+</script>
+</body>
+</html>
